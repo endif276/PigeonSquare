@@ -1,9 +1,13 @@
+package POO.devoir2.PigeonSquare;
+
+
 import java.awt.Dimension;
 import java.awt.Graphics;
- 
+import java.util.Iterator;
+
 import javax.swing.JPanel;
  
-public class Pigeon extends Thread{
+public class Pigeon extends Thread implements Element{
      
     int lower = 5;
     int higher = 30;
@@ -14,6 +18,8 @@ public class Pigeon extends Thread{
  
  
     private JPanel panneau;
+    
+    
     private int x =(int)(Math.random() * (higher2-lower2));
     private int y = (int)(Math.random() * (higher2-lower2));
     private int dx  =(int)(Math.random() * (higher3-lower3));
@@ -22,9 +28,10 @@ public class Pigeon extends Thread{
 //    private  final int taille =(int)(Math.random() * (higher-lower)) + lower;
     private  final int taille =30;
     
-    public Pigeon(JPanel panneau, ThreadGroup groupe, String nom){
-        super(groupe,nom);
+    public Pigeon(JPanel panneau, ThreadGroup groupePigeon, String nom){
+        super(groupePigeon,nom);
         this.panneau=panneau;
+       
  
     }
  
@@ -34,7 +41,7 @@ public class Pigeon extends Thread{
         surface.dispose();  // libère les ressources graphiques pour d'autres applications
     }
  
-    public void déplace() {
+    public void deplace() {
         Graphics surface = panneau.getGraphics();
         surface.setXORMode(panneau.getBackground());
         surface.fillOval(x, y, taille, taille);   // efface l'ancien tracé grâce
@@ -61,8 +68,38 @@ public class Pigeon extends Thread{
         try {
             dessine();
             while (!interrupted()) {
-//                déplace(); 
-                sleep(20);
+                
+            	Iterator<Human> it = Element.lh.iterator();
+            	Human Humain;
+            	
+            	while(it.hasNext()) {
+            		
+            		try {
+            		Humain = (Human)it.next();
+            		
+            		
+            		
+            		synchronized(Humain) {
+            		while((Math.abs(this.x - Humain.getX())< 100) && (Math.abs(this.y - Humain.getY())<100)) {
+            			
+            			
+            			deplace();
+            			sleep(20);
+            			
+            		}
+            		sleep(20);
+            	}
+            		}catch(Exception e) {
+                		
+                		
+                	}
+            	}
+            	
+            	
+            		
+            	
+            	sleep(20);
+                
             }
         }
         catch (InterruptedException e) {}

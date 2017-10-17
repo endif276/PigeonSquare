@@ -1,5 +1,6 @@
 package POO.devoir2.PigeonSquare;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,8 +21,8 @@ public class Human extends Thread implements Element{
     
     private int x =2;
     private int y = (int)(Math.random() * (higher2-lower2));
-    private int dx  =(int)(Math.random() * (higher3-lower3));
-    private int dy  =(int)(Math.random() * (higher3-lower3));
+    private int dx  =(int)(Math.random() * (higher3-lower3))+1;
+    private int dy  =(int)(Math.random() * (higher3-lower3))+1;
 	
     private  final int taille =100;
     
@@ -36,6 +37,7 @@ public class Human extends Thread implements Element{
 		    }
 		 
 		    public void dessine() {
+		    	//Dessine l'humain
 		        Graphics surface = panneau.getGraphics(); // récupère les ressources graphiques
 		       
 		        surface.fillOval(x, y, taille, taille); // pour permettre le tracé des dessins
@@ -61,6 +63,7 @@ public class Human extends Thread implements Element{
 		    
 
 		    public void deplace() {
+		    	//Deplace l'humain
 		        Graphics surface = panneau.getGraphics();
 		        surface.setXORMode(panneau.getBackground());
 		        surface.fillOval(x, y, taille, taille);   // efface l'ancien tracé grâce
@@ -94,5 +97,7 @@ public class Human extends Thread implements Element{
 			
 				return y;
 			}
+
+
 		    
 }

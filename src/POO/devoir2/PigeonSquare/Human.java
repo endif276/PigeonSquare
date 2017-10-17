@@ -50,7 +50,7 @@ public class Human extends Thread implements Element{
 		        try {
 		            dessine();
 		            while (!interrupted()) {
-		                deplace(); 
+		                deplace(); //Se déplace dans une seule direction jusqu'à disparaitre
 		                sleep(20);
 		            }
 		        }
